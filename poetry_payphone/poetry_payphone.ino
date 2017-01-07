@@ -31,10 +31,8 @@ void setup(){
     Serial.println("SD fail");  
     return;   // don't do anything more if not
   }
-  tmrpcm.play("beware.wav"); //the sound file "music" will play each time the arduino powers up, or is reset
+  tmrpcm.play("intro.wav"); //the sound file "music" will play each time the arduino powers up, or is reset
 
-
-  
 }
 
 void loop(){  
