@@ -1,9 +1,10 @@
-#include <SD.h>                      // need to include the SD library
+#include <SD.h>  // need to include the SD library
+#include <Keypad.h>  
 //#define SD_ChipSelectPin 53  //example uses hardware SS pin 53 on Mega2560
 #define SD_ChipSelectPin 10  //using digital pin 4 on arduino nano 328
-#include <TMRpcm.h>           //  also need to include this library...
+//#include <TMRpcm.h>           //  also need to include this library...
 
-TMRpcm tmrpcm;   // create an object for use in this sketch
+//TMRpcm tmrpcm;   // create an object for use in this sketch
 char mychar;
 
 // Keypad Setup
@@ -18,35 +19,36 @@ char keys[rows][cols] = {
 byte rowPins[rows] = {5, 4, 3, 2}; //connect to the row pinouts of the keypad
 byte colPins[cols] = {8, 7, 6}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, rows, cols );
-
+int keyPin = 12;
 
 void setup(){
 
 
   // Speaker Setup
-  tmrpcm.speakerPin = 9; //11 on Mega, 9 on Uno, Nano, etc
+  //tmrpcm.speakerPin = 9; //11 on Mega, 9 on Uno, Nano, etc
 
   Serial.begin(9600);
-  if (!SD.begin(SD_ChipSelectPin)) {  // see if the card is present and can be initialized:
-    Serial.println("SD fail");  
-    return;   // don't do anything more if not
-  }
-  tmrpcm.play("intro.wav"); //the sound file "music" will play each time the arduino powers up, or is reset
+  pinMode(keyPin, INPUT);
+//  if (!SD.begin(SD_ChipSelectPin)) {  // see if the card is present and can be initialized:
+//    Serial.println("SD fail");  
+//    return;   // don't do anything more if not
+//  }
+//  tmrpcm.play("intro.wav"); //the sound file "music" will play each time the arduino powers up, or is reset
 
 }
 
-void loop(){  
+void loop(){ 
+    char key = keypad.getKey();
 
-  input = "";
+    if (key != NO_KEY){
+      Serial.println(key);
+    }
+    delay(1000);
   
-  for (int i = 0; i < 4; i++) {
-    waitForKey();
-    input += getKey();
-  }
 
-  if(Serial.available()){   
-    mychar = Serial.read();
-    tmrpcm.play("poem" + input + ".wav");
-  }
+//  if(Serial.available()){   
+//    mychar = Serial.read();
+//     tmrpcm.play("poem" + input + ".wav");
+//  }
 
 }
