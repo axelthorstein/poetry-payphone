@@ -19,7 +19,6 @@ char keys[rows][cols] = {
 byte rowPins[rows] = {5, 4, 3, 2}; //connect to the row pinouts of the keypad
 byte colPins[cols] = {8, 7, 6}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, rows, cols );
-int keyPin = 12;
 
 void setup(){
 
@@ -28,7 +27,6 @@ void setup(){
   //tmrpcm.speakerPin = 9; //11 on Mega, 9 on Uno, Nano, etc
 
   Serial.begin(9600);
-  pinMode(keyPin, INPUT);
 //  if (!SD.begin(SD_ChipSelectPin)) {  // see if the card is present and can be initialized:
 //    Serial.println("SD fail");  
 //    return;   // don't do anything more if not
